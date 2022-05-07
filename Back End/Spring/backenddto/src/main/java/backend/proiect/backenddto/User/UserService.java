@@ -1,13 +1,9 @@
-package backend.proiect.backenddto.Service;
+package backend.proiect.backenddto.User;
 
-import backend.proiect.backenddto.DTO.UserDTO;
-import backend.proiect.backenddto.Model.User;
-import backend.proiect.backenddto.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,9 +26,7 @@ public class UserService {
     }
 
     public User addUser(UserDTO userDTO){
-
         return userRepository.save(this.convertUserDTOToUser(userDTO));
-
     }
 
     private UserDTO convertUserToDTO(User user){

@@ -1,4 +1,4 @@
-package backend.proiect.backenddto.Model;
+package backend.proiect.backenddto.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

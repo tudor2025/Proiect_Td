@@ -1,4 +1,4 @@
-package backend.proiect.backenddto.DTO;
+package backend.proiect.backenddto.User;
 
 import lombok.Data;
 

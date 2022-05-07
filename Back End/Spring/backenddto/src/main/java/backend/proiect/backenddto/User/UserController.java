@@ -1,8 +1,7 @@
-package backend.proiect.backenddto.Controller;
+package backend.proiect.backenddto.User;
 
-import backend.proiect.backenddto.DTO.UserDTO;
-import backend.proiect.backenddto.Model.User;
-import backend.proiect.backenddto.Service.UserService;
+import backend.proiect.backenddto.User.UserDTO;
+import backend.proiect.backenddto.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

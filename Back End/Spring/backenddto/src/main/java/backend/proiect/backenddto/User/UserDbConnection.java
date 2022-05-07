@@ -1,12 +1,10 @@
-package backend.proiect.backenddto.DbConnections;
+package backend.proiect.backenddto.User;
 
-import backend.proiect.backenddto.Model.User;
+import backend.proiect.backenddto.User.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class UserDbConnection {
 
