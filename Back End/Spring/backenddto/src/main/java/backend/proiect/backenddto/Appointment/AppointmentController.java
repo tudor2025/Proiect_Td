@@ -38,9 +38,15 @@ public class AppointmentController {
     }
 
     @RequestMapping(value = "/appointments/accept", method = RequestMethod.PUT)
-    @ResponseStatus(code = HttpStatus.CREATED, reason = "Appointment accepted.")
+    @ResponseStatus(code = HttpStatus.ACCEPTED, reason = "Appointment accepted.")
     public void acceptAppointment(@RequestBody IntDTO id){
         appointmentService.acceptAppointment(id);
+    }
+
+    @RequestMapping(value = "/appointments/delete", method = RequestMethod.DELETE)
+    @ResponseStatus(code = HttpStatus.OK, reason = "Appointment deleted.")
+    public void deleteAppointment(@RequestBody IntDTO id){
+        appointmentService.deleteAppointment(id);
     }
 
 }

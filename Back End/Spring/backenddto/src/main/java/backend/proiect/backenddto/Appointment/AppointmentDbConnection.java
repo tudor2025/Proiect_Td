@@ -123,4 +123,22 @@ public class AppointmentDbConnection {
 
     }
 
+    public void deleteAppointment(int id){
+
+        try{
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
+
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM Appointment WHERE Id=(?)");
+
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+
+        }
+
+    }
+
 }

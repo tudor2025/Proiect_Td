@@ -42,4 +42,10 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     }
 
+    default void deleteAppointment(int id){
+
+        appointmentDbConn.deleteAppointment(id);
+
+    }
+
 }

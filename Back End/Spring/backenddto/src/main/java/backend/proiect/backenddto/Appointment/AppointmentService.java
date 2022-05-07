@@ -48,6 +48,10 @@ public class AppointmentService {
         appointmentRepository.acceptAppointment(id.getId());
     }
 
+    public void deleteAppointment(IntDTO id){
+        appointmentRepository.deleteAppointment(id.getId());
+    }
+
     private AppointmentDTO converAppointmentToDTO(Appointment appointment){
 
         AppointmentDTO appointmentDTO = new AppointmentDTO();
