@@ -1,0 +1,100 @@
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Style the text from Home page */
+.centered {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 50px;
+  font-family: Lucida Handwriting, css;
+}
+
+/* Textbox for name*/
+.form {
+	position: absolute;
+	top: 20%;
+	left: 10%;
+	font-size: 45px;
+}
+
+/* Style the name*/
+.name {
+	position: absolute;
+	top: 17%;
+	left: 10%;
+	font-size: 45px;
+	color: white;
+}
+
+/* Style the date*/
+.date {
+	position: absolute;
+	top: 17%;
+	left: 30%;
+	font-size: 45px;
+	color: white;
+}
+
+/* Textbox for date*/
+.tabel {
+	position: absolute;
+	top: 20%;
+	left: 30%;
+	font-size: 45px;
+}
+
+/* Style the hour*/
+.time {
+	position: absolute;
+	top: 17%;
+	left: 50%;
+	font-size: 45px;
+	color: white;
+}
+
+/* Textbox for time*/
+.clock {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	font-size: 45px;
+}
+
+/* Style the button*/
+.button {
+	position: absolute;
+	top: 30%;
+	left: 10%;
+	font-size: 20px;
+	background-color: #04AA6D;
+	color: white;
+}
+
