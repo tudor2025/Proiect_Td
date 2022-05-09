@@ -25,6 +25,7 @@ public class UserController {
         return userService.getById(id);
     }
 
+
     @RequestMapping(value = "/users/add", method = RequestMethod.POST)
     @ResponseStatus(code = HttpStatus.CREATED, reason = "User added to DB.")
     public void addUser(@RequestBody UserDTO userDTO){
