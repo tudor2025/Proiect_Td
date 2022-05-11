@@ -28,12 +28,17 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     }
 
-    @Override
-    default <S extends Appointment> S save(S entity){
+    default boolean addAppointment(Appointment entity){
 
-        appointmentDbConn.addAppointment(entity.getDuration(), entity.getIdUser());
+        return appointmentDbConn.addAppointment(
+                entity.getDuration(),
+                entity.getIdUser(),
+                entity.getYear(),
+                entity.getMonth(),
+                entity.getDay(),
+                entity.getHour(),
+                entity.getMinute());
 
-        return (S) new Appointment();
     }
 
     default void acceptAppointment(int id){

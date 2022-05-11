@@ -1,8 +1,7 @@
 package backend.proiect.backenddto.Appointment;
 
-import backend.proiect.backenddto.Appointment.AppointmentDTO;
-import backend.proiect.backenddto.Appointment.Appointment;
-import backend.proiect.backenddto.Appointment.AppointmentRepository;
+import backend.proiect.backenddto.Appointment.DTO.AppointmentAddDTO;
+import backend.proiect.backenddto.Appointment.DTO.AppointmentDTO;
 import backend.proiect.backenddto.IntDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +39,10 @@ public class AppointmentService {
 
     }
 
-    public Appointment addAppointment(AppointmentAddDTO appointmentAddDTO){
-        return appointmentRepository.save(this.convertAppointmentDTOToApp(appointmentAddDTO));
+    public boolean addAppointment(AppointmentAddDTO appointmentAddDTO){
+
+        return appointmentRepository.addAppointment(this.convertAppointmentDTOToApp(appointmentAddDTO));
+
     }
 
     public void acceptAppointment(IntDTO id){
@@ -60,20 +61,13 @@ public class AppointmentService {
         appointmentDTO.setDuration(appointment.getDuration());
         appointmentDTO.setStatus(appointment.getStatus());
         appointmentDTO.setIdUser(appointment.getIdUser());
+        appointmentDTO.setYear(appointment.getYear());
+        appointmentDTO.setMonth(appointment.getMonth());
+        appointmentDTO.setDay(appointment.getDay());
+        appointmentDTO.setHour(appointment.getHour());
+        appointmentDTO.setMinute(appointment.getMinute());
 
         return appointmentDTO;
-    }
-
-    private Appointment convertAppointmentDTOToApp(AppointmentDTO appointmentDTO){
-
-        Appointment appointment = new Appointment();
-
-        appointment.setId(appointmentDTO.getId());
-        appointment.setDuration(appointmentDTO.getDuration());
-        appointment.setStatus(appointmentDTO.getStatus());
-        appointment.setIdUser(appointmentDTO.getIdUser());
-
-        return appointment;
     }
 
     private Appointment convertAppointmentDTOToApp(AppointmentAddDTO appointmentAddDTO){
@@ -83,6 +77,11 @@ public class AppointmentService {
         appointment.setDuration(appointmentAddDTO.getDuration());
         appointment.setStatus(0);
         appointment.setIdUser(appointmentAddDTO.getIdUser());
+        appointment.setYear(appointmentAddDTO.getYear());
+        appointment.setMonth(appointmentAddDTO.getMonth());
+        appointment.setDay(appointmentAddDTO.getDay());
+        appointment.setHour(appointmentAddDTO.getHour());
+        appointment.setMinute(appointmentAddDTO.getMinute());
 
         return appointment;
     }
