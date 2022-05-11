@@ -26,4 +26,19 @@ public class Appointment {
     @Column(name = "IdUser")
     private int idUser;
 
+    @Column(name = "Year")
+    private int year;
+
+    @Column(name = "Month")
+    private int month;
+
+    @Column(name = "Day")
+    private int day;
+
+    @Column(name = "Hour")
+    private int hour;
+
+    @Column(name = "Minute")
+    private int minute;
+
 }
