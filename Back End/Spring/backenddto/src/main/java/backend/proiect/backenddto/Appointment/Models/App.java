@@ -1,4 +1,4 @@
-package backend.proiect.backenddto.Appointment;
+package backend.proiect.backenddto.Appointment.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,14 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "Appointment")
-public class Appointment {
+public class App {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "Duration")
-    private int duration;
+    @Column(name = "idService")
+    private int idService;
 
     @Column(name = "Status")
     private int status;

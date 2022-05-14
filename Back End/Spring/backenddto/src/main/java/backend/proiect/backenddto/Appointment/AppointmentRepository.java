@@ -1,37 +1,37 @@
 package backend.proiect.backenddto.Appointment;
 
-import backend.proiect.backenddto.Appointment.AppointmentDbConnection;
-import backend.proiect.backenddto.Appointment.Appointment;
+import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+public interface AppointmentRepository extends JpaRepository<AppointmentShow, Long> {
 
     AppointmentDbConnection appointmentDbConn = new AppointmentDbConnection();
 
     @Override
-    default List<Appointment> findAll(){
+    default List<AppointmentShow> findAll(){
         return appointmentDbConn.getAllAppointments();
     }
 
-    default Appointment getByAppId(Long id){
+    default AppointmentShow getByAppId(Long id){
 
         return appointmentDbConn.getByAppId(id.intValue());
 
     }
 
-    default List<Appointment> getByUserId(int id){
 
-        return appointmentDbConn.getByUserId(id);
+    default List<AppointmentShow> getByUserPhoneNr(String userPhoneNr){
+
+        return appointmentDbConn.getByUserPhoneNr(userPhoneNr);
 
     }
 
-    default boolean addAppointment(Appointment entity){
+    /*
+    default boolean addAppointment(App entity){
 
         return appointmentDbConn.addAppointment(
-                entity.getDuration(),
+                entity.getIdService(),
                 entity.getIdUser(),
                 entity.getYear(),
                 entity.getMonth(),
@@ -52,5 +52,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         appointmentDbConn.deleteAppointment(id);
 
     }
+
+     */
 
 }

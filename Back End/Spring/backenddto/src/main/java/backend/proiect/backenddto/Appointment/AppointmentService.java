@@ -1,8 +1,9 @@
 package backend.proiect.backenddto.Appointment;
 
 import backend.proiect.backenddto.Appointment.DTO.AppointmentAddDTO;
-import backend.proiect.backenddto.Appointment.DTO.AppointmentDTO;
-import backend.proiect.backenddto.IntDTO;
+import backend.proiect.backenddto.Appointment.DTO.AppointmentShowDTO;
+import backend.proiect.backenddto.Appointment.Models.App;
+import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,30 +16,31 @@ public class AppointmentService {
     @Autowired
     public AppointmentRepository appointmentRepository;
 
-    public List<AppointmentDTO> getAllUsers(){
+    public List<AppointmentShowDTO> getAllUsers(){
 
         return appointmentRepository.findAll()
                 .stream()
-                .map(this::converAppointmentToDTO)
+                .map(this::converAppointmentShowToDTO)
                 .collect(Collectors.toList());
 
     }
 
-    public AppointmentDTO getByAppId(Long id){
+    public AppointmentShowDTO getByAppId(Long id){
 
-        return converAppointmentToDTO(appointmentRepository.getByAppId(id));
+        return converAppointmentShowToDTO(appointmentRepository.getByAppId(id));
 
     }
 
-    public List<AppointmentDTO> getByUserId(int id){
+    public List<AppointmentShowDTO> getByUserPhoneNr(String userPhoneNr){
 
-        return appointmentRepository.getByUserId(id)
+        return appointmentRepository.getByUserPhoneNr(userPhoneNr)
                 .stream()
-                .map(this::converAppointmentToDTO)
+                .map(this::converAppointmentShowToDTO)
                 .collect(Collectors.toList());
 
     }
 
+    /*
     public boolean addAppointment(AppointmentAddDTO appointmentAddDTO){
 
         return appointmentRepository.addAppointment(this.convertAppointmentDTOToApp(appointmentAddDTO));
@@ -52,29 +54,34 @@ public class AppointmentService {
     public void deleteAppointment(IntDTO id){
         appointmentRepository.deleteAppointment(id.getId());
     }
+    */
 
-    private AppointmentDTO converAppointmentToDTO(Appointment appointment){
+    private AppointmentShowDTO converAppointmentShowToDTO(AppointmentShow appointmentShow){
 
-        AppointmentDTO appointmentDTO = new AppointmentDTO();
+        AppointmentShowDTO appointmentShowDTO = new AppointmentShowDTO();
 
-        appointmentDTO.setId(appointment.getId());
-        appointmentDTO.setDuration(appointment.getDuration());
-        appointmentDTO.setStatus(appointment.getStatus());
-        appointmentDTO.setIdUser(appointment.getIdUser());
-        appointmentDTO.setYear(appointment.getYear());
-        appointmentDTO.setMonth(appointment.getMonth());
-        appointmentDTO.setDay(appointment.getDay());
-        appointmentDTO.setHour(appointment.getHour());
-        appointmentDTO.setMinute(appointment.getMinute());
+        appointmentShowDTO.setStatus(appointmentShow.getStatus());
+        appointmentShowDTO.setYear(appointmentShow.getYear());
+        appointmentShowDTO.setMonth(appointmentShow.getMonth());
+        appointmentShowDTO.setDay(appointmentShow.getDay());
+        appointmentShowDTO.setHour(appointmentShow.getHour());
+        appointmentShowDTO.setMinute(appointmentShow.getMinute());
 
-        return appointmentDTO;
+        appointmentShowDTO.setUserName(appointmentShow.getUserName());
+        appointmentShowDTO.setUseerPhoneNr(appointmentShow.getUserPhoneNr());
+
+        appointmentShowDTO.setServiceName(appointmentShow.getServiceName());
+        appointmentShowDTO.setServicePrice(appointmentShow.getServicePrice());
+        appointmentShowDTO.setServiceDuration(appointmentShow.getServiceDuration());
+
+        return appointmentShowDTO;
     }
 
-    private Appointment convertAppointmentDTOToApp(AppointmentAddDTO appointmentAddDTO){
+    private App convertAppointmentDTOToApp(AppointmentAddDTO appointmentAddDTO){
 
-        Appointment appointment = new Appointment();
+        App appointment = new App();
 
-        appointment.setDuration(appointmentAddDTO.getDuration());
+        appointment.setIdService(appointmentAddDTO.getIdService());
         appointment.setStatus(0);
         appointment.setIdUser(appointmentAddDTO.getIdUser());
         appointment.setYear(appointmentAddDTO.getYear());

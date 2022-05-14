@@ -1,5 +1,8 @@
 package backend.proiect.backenddto.Appointment;
 
+import backend.proiect.backenddto.Appointment.Models.App;
+import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,24 +20,41 @@ public class AppointmentDbConnection {
         }
     }
 
-    public List<Appointment> getAllAppointments() {
-        List<Appointment> listAppointments = new ArrayList<Appointment>();
+    public List<AppointmentShow> getAllAppointments() {
+
+        List<AppointmentShow> listAppointments = new ArrayList<AppointmentShow>();
+
         try {
 
             Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Appointment");
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT " +
+                            " a.Id, a.Status, a.Year, a.Month, a.Day, a.Hour, a.Minute, " +
+                            " s.Name serviceName, s.Price servicePrice, s.Duration serviceDuration," +
+                            " u.Name userName, u.PhoneNr userPhoneNr" +
+                            "  FROM Appointment a" +
+                            "   JOIN Service s" +
+                            "    ON a.IdService = s.Id" +
+                            "    JOIN User u" +
+                            "    ON a.IdUser = u.Id;"
+            );
 
             while(rs.next()) {
-                listAppointments.add(new Appointment(
+                listAppointments.add(new AppointmentShow(
                         rs.getInt("Id"),
-                        rs.getInt("Duration"),
                         rs.getInt("Status"),
-                        rs.getInt("IdUser"),
                         rs.getInt("Year"),
                         rs.getInt("Month"),
                         rs.getInt("Day"),
                         rs.getInt("Hour"),
-                        rs.getInt("Minute")
+                        rs.getInt("Minute"),
+
+                        rs.getString("userName"),
+                        rs.getString("userPhoneNr"),
+
+                        rs.getString("serviceName"),
+                        rs.getString("servicePrice"),
+                        rs.getString("serviceDuration")
                 ));
             }
         } catch (SQLException var7) {
@@ -44,24 +64,39 @@ public class AppointmentDbConnection {
         return listAppointments;
     }
 
-    public Appointment getByAppId(int id) {
+    public AppointmentShow getByAppId(int id) {
 
         try {
 
             Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Appointment WHERE Id=" + id);
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT " +
+                            " a.Id, a.Status, a.Year, a.Month, a.Day, a.Hour, a.Minute, " +
+                            " s.Name serviceName, s.Price servicePrice, s.Duration serviceDuration," +
+                            " u.Name userName, u.PhoneNr userPhoneNr" +
+                            "  FROM Appointment a" +
+                            "   JOIN Service s" +
+                            "    ON a.IdService = s.Id" +
+                            "    JOIN User u" +
+                            "    ON a.IdUser = u.Id WHERE a.Id=" + id + ";"
+            );
 
             if(rs.next()){
-                return new Appointment(
+                return new AppointmentShow(
                         rs.getInt("Id"),
-                        rs.getInt("Duration"),
-                        rs.getInt("status"),
-                        rs.getInt("IdUser"),
+                        rs.getInt("Status"),
                         rs.getInt("Year"),
                         rs.getInt("Month"),
                         rs.getInt("Day"),
                         rs.getInt("Hour"),
-                        rs.getInt("Minute")
+                        rs.getInt("Minute"),
+
+                        rs.getString("userName"),
+                        rs.getString("userPhoneNr"),
+
+                        rs.getString("serviceName"),
+                        rs.getString("servicePrice"),
+                        rs.getString("serviceDuration")
                 );
             }
 
@@ -72,26 +107,44 @@ public class AppointmentDbConnection {
         return null;
     }
 
-    public List<Appointment> getByUserId(int id) {
-        List<Appointment> listAppointments = new ArrayList<Appointment>();
+    public List<AppointmentShow> getByUserPhoneNr(String userPhoneNr) {
+
+        List<AppointmentShow> listAppointments = new ArrayList<AppointmentShow>();
+
         try {
 
             Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Appointment WHERE IdUser=" + id);
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT " +
+                            " a.Id, a.Status, a.Year, a.Month, a.Day, a.Hour, a.Minute, " +
+                            " s.Name serviceName, s.Price servicePrice, s.Duration serviceDuration," +
+                            " u.Name userName, u.PhoneNr userPhoneNr" +
+                            "  FROM Appointment a" +
+                            "   JOIN Service s" +
+                            "    ON a.IdService = s.Id" +
+                            "    JOIN User u" +
+                            "    ON a.IdUser = u.Id WHERE u.PhoneNr=" + userPhoneNr + ";"
+            );
 
             while(rs.next()) {
-                listAppointments.add(new Appointment(
+                listAppointments.add(new AppointmentShow(
                         rs.getInt("Id"),
-                        rs.getInt("Duration"),
                         rs.getInt("Status"),
-                        rs.getInt("IdUser"),
                         rs.getInt("Year"),
                         rs.getInt("Month"),
                         rs.getInt("Day"),
                         rs.getInt("Hour"),
-                        rs.getInt("Minute")
+                        rs.getInt("Minute"),
+
+                        rs.getString("userName"),
+                        rs.getString("userPhoneNr"),
+
+                        rs.getString("serviceName"),
+                        rs.getString("servicePrice"),
+                        rs.getString("serviceDuration")
                 ));
             }
+
         } catch (SQLException var7) {
             System.out.println("Error Db Connection.");
         }
@@ -99,7 +152,8 @@ public class AppointmentDbConnection {
         return listAppointments;
     }
 
-    public boolean addAppointment(int duration, int idUser, int year, int month, int day, int hour, int minute){
+    /*
+    public boolean addAppointment(int idService, int idUser, int year, int month, int day, int hour, int minute){
 
         try{
 
@@ -116,9 +170,9 @@ public class AppointmentDbConnection {
             }else{
 
                 PreparedStatement stmt = this.connection.prepareStatement("INSERT INTO Appointment " +
-                        "(Duration, Status, IdUser, Year, Month, Day, Hour, Minute) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                        "(idService, Status, IdUser, Year, Month, Day, Hour, Minute) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-                stmt.setInt(1, duration);
+                stmt.setInt(1, idService);
                 stmt.setInt(2, 0);
                 stmt.setInt(3, idUser);
                 stmt.setInt(4, year);
@@ -174,5 +228,7 @@ public class AppointmentDbConnection {
         }
 
     }
+
+     */
 
 }

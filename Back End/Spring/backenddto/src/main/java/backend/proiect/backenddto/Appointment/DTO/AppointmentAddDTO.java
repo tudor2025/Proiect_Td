@@ -5,8 +5,10 @@ import lombok.Data;
 @Data
 public class AppointmentAddDTO {
 
-    private int duration;
+    private int idService;
+
     private int idUser;
+
     private int year;
     private int month;
     private int day;
