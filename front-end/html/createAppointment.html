@@ -3,12 +3,12 @@
     <head>
 		
 		<link rel="stylesheet" href="css/style.css">
-
-
+		<link rel="stylesheet" href="css/createAppointment_Style.css">
 
     </head>
     <body style = "background: url(Pics/bg.jpg);
-				   background-size: 100%">
+				   background-size: 100%
+				   background-repeat: no-repeat;">
 		<div class="topnav">
 			<a href="index.html">Home</a>
 			<a class="active" href="make.html">Make an appointment</a>
@@ -16,12 +16,88 @@
 			<a href="see.html">See your appointment</a>
 		</div>
 
+		<div class="card">
 
-		<button id="button_Create">Create</button>
+			<table id="table">
+				<tr>
+					<th colspan="2">
+						<hr class="dotted">
+					</th>
+				</tr>
+
+				<tr class="spaceUnder">
+					<th>
+						<label for="service" id="label">Service: </label>
+					</th>
+					<th>
+						<select name="cars" id="dropDown_Service"></select>
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label style="color: rgba(255, 255, 255, 0.85)">Price:</label>
+					</th>
+					<th>
+						<label id="label_Price"></label>
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label style="color: rgba(255, 255, 255, 0.85);">Duration:</label>
+					</th>
+					<th>
+						<label id="label_Duration"></label>
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label for="phoneNr" id="label"> Phone Nr. :</label>
+					</th>
+					<th>
+						<input type="tel" name="phoneNr" id="textBox_phonrNr" placeholder="06763110200">
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label for="dateSelector_Date" id="label">Date:</label>
+					</th>
+					<th>
+						<input type="date" id="dateSelector_Date" name="dateSelector_Date">
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label for="timeSelector" id="label">Hour:</label>
+					</th>
+					<th>
+						<input type="time" id="timeSelector" name="timeSelector">
+					</th>
+				</tr>
+
+				<tr>
+					<th colspan="2">
+						<hr class="dotted">
+					</th>
+				</tr>
+
+				<tr>
+					<th colspan="2">
+						<button id="button_Create">Create</button>
+					</th>
+				</tr>
+			</table>
+
+		</div>
 
     </body>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="javascript/main.js"></script>
+    <script src="javascript/createAppointment.js"></script>
 
 </html>

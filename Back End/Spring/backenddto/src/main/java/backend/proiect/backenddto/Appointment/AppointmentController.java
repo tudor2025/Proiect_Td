@@ -44,22 +44,23 @@ public class AppointmentController {
 
     //Todo: AICI AM RAMAS SA FAC ADAUGAREA
 
-    /*
+
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping(value = "/appointments/add", method = RequestMethod.POST)
     //@ResponseStatus(code = HttpStatus.ACCEPTED, reason = "Appointment accepted.")
     public int addAppointment (@RequestBody AppointmentAddDTO appointmentAddDTO){
 
-        if(appointmentService.addAppointment(appointmentAddDTO)){
+        //if(appointmentService.addAppointment(appointmentAddDTO)){
             return 201;
             //return new ResponseEntity<>("201", HttpStatus.CREATED);
-        }else{
-            return 404;
+        //}else{
+        //    return 404;
             //return new ResponseEntity<>("404", HttpStatus.FORBIDDEN);
-        }
+        //}
 
     }
 
+    /*
     @CrossOrigin(origins = "http://localhost")
     @RequestMapping(value = "/appointments/accept", method = RequestMethod.PUT)
     @ResponseStatus(code = HttpStatus.ACCEPTED, reason = "Appointment accepted.")
