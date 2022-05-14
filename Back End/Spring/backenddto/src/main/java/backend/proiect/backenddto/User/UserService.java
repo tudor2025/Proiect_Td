@@ -25,8 +25,8 @@ public class UserService {
         return this.convertUserToDTO(userRepository.getById(id));
     }
 
-    public User addUser(UserDTO userDTO){
-        return userRepository.save(this.convertUserDTOToUser(userDTO));
+    public int getIdByPhone(UserDTO userDTO){
+        return userRepository.getIdByPhone(convertUserDTOToUser(userDTO));
     }
 
     private UserDTO convertUserToDTO(User user){

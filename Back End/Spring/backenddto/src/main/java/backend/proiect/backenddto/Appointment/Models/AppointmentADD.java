@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "Appointment")
-public class App {
+public class AppointmentADD {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,11 @@ public class App {
     @Column(name = "Status")
     private int status;
 
-    @Column(name = "IdUser")
-    private int idUser;
+    @Column(name = "userName")
+    private String userName;
+
+    @Column(name = "userPhoneNr")
+    private String userPhoneNr;
 
     @Column(name = "Year")
     private int year;

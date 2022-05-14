@@ -24,17 +24,16 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    @CrossOrigin(origins = "http://localhost")
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public UserDTO getUserById(@PathVariable int id){
         return userService.getById(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
-    @RequestMapping(value = "/users/add", method = RequestMethod.POST)
-    @ResponseStatus(code = HttpStatus.CREATED, reason = "User added to DB.")
-    public void addUser(@RequestBody UserDTO userDTO){
-        userService.addUser(userDTO);
+    @CrossOrigin(origins = "http://localhost")
+    @RequestMapping(value = "/users/getIdByPhone", method = RequestMethod.POST)
+    public int getIdByPhone(@RequestBody UserDTO userDTO){
+        return userService.getIdByPhone(userDTO);
     }
 
 }

@@ -2,8 +2,9 @@ package backend.proiect.backenddto.Appointment;
 
 import backend.proiect.backenddto.Appointment.DTO.AppointmentAddDTO;
 import backend.proiect.backenddto.Appointment.DTO.AppointmentShowDTO;
-import backend.proiect.backenddto.Appointment.Models.App;
+import backend.proiect.backenddto.Appointment.Models.AppointmentADD;
 import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
+import backend.proiect.backenddto.IntDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,36 +26,27 @@ public class AppointmentService {
 
     }
 
-    public AppointmentShowDTO getByAppId(Long id){
+    public AppointmentShowDTO getByAppId(int id){
 
         return converAppointmentShowToDTO(appointmentRepository.getByAppId(id));
 
     }
 
-    public List<AppointmentShowDTO> getByUserPhoneNr(String userPhoneNr){
+    public int addAppointment(AppointmentAddDTO appointmentAddDTO){
 
-        return appointmentRepository.getByUserPhoneNr(userPhoneNr)
-                .stream()
-                .map(this::converAppointmentShowToDTO)
-                .collect(Collectors.toList());
+        int ok = appointmentRepository.addAppointment(this.convertAppointmentDTOToApp(appointmentAddDTO));
 
-    }
-
-    /*
-    public boolean addAppointment(AppointmentAddDTO appointmentAddDTO){
-
-        return appointmentRepository.addAppointment(this.convertAppointmentDTOToApp(appointmentAddDTO));
+        return ok;
 
     }
 
-    public void acceptAppointment(IntDTO id){
-        appointmentRepository.acceptAppointment(id.getId());
+    public void acceptAppointment(int id){
+        appointmentRepository.acceptAppointment(id);
     }
 
-    public void deleteAppointment(IntDTO id){
-        appointmentRepository.deleteAppointment(id.getId());
+    public void deleteAppointment(int id){
+        appointmentRepository.deleteAppointment(id);
     }
-    */
 
     private AppointmentShowDTO converAppointmentShowToDTO(AppointmentShow appointmentShow){
 
@@ -77,13 +69,16 @@ public class AppointmentService {
         return appointmentShowDTO;
     }
 
-    private App convertAppointmentDTOToApp(AppointmentAddDTO appointmentAddDTO){
+    private AppointmentADD convertAppointmentDTOToApp(AppointmentAddDTO appointmentAddDTO){
 
-        App appointment = new App();
+        AppointmentADD appointment = new AppointmentADD();
 
         appointment.setIdService(appointmentAddDTO.getIdService());
         appointment.setStatus(0);
-        appointment.setIdUser(appointmentAddDTO.getIdUser());
+
+        appointment.setUserPhoneNr(appointmentAddDTO.getUserPhoneNr());
+        appointment.setUserName(appointmentAddDTO.getUserName());
+
         appointment.setYear(appointmentAddDTO.getYear());
         appointment.setMonth(appointmentAddDTO.getMonth());
         appointment.setDay(appointmentAddDTO.getDay());

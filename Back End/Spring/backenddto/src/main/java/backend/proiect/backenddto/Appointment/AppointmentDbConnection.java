@@ -1,6 +1,5 @@
 package backend.proiect.backenddto.Appointment;
 
-import backend.proiect.backenddto.Appointment.Models.App;
 import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
 
 import java.sql.*;
@@ -14,7 +13,8 @@ public class AppointmentDbConnection {
     public AppointmentDbConnection() {
 
         try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
+            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useLegacyDate" +
+                    "timeCode=false&serverTimezone=UTC", "root", "rootpass");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,90 +107,37 @@ public class AppointmentDbConnection {
         return null;
     }
 
-    public List<AppointmentShow> getByUserPhoneNr(String userPhoneNr) {
-
-        List<AppointmentShow> listAppointments = new ArrayList<AppointmentShow>();
-
-        try {
-
-            Statement stmt = this.connection.createStatement();
-            ResultSet rs = stmt.executeQuery(
-                    "SELECT " +
-                            " a.Id, a.Status, a.Year, a.Month, a.Day, a.Hour, a.Minute, " +
-                            " s.Name serviceName, s.Price servicePrice, s.Duration serviceDuration," +
-                            " u.Name userName, u.PhoneNr userPhoneNr" +
-                            "  FROM Appointment a" +
-                            "   JOIN Service s" +
-                            "    ON a.IdService = s.Id" +
-                            "    JOIN User u" +
-                            "    ON a.IdUser = u.Id WHERE u.PhoneNr=" + userPhoneNr + ";"
-            );
-
-            while(rs.next()) {
-                listAppointments.add(new AppointmentShow(
-                        rs.getInt("Id"),
-                        rs.getInt("Status"),
-                        rs.getInt("Year"),
-                        rs.getInt("Month"),
-                        rs.getInt("Day"),
-                        rs.getInt("Hour"),
-                        rs.getInt("Minute"),
-
-                        rs.getString("userName"),
-                        rs.getString("userPhoneNr"),
-
-                        rs.getString("serviceName"),
-                        rs.getString("servicePrice"),
-                        rs.getString("serviceDuration")
-                ));
-            }
-
-        } catch (SQLException var7) {
-            System.out.println("Error Db Connection.");
-        }
-
-        return listAppointments;
-    }
-
-    /*
-    public boolean addAppointment(int idService, int idUser, int year, int month, int day, int hour, int minute){
+    public int addAppointment(int idService, String userName, String userPhoneNr,
+                                  int year, int month, int day, int hour, int minute){
 
         try{
 
-            Statement stm1 = this.connection.createStatement();
-            ResultSet rs = stm1.executeQuery("SELECT * FROM Appointment WHERE " +
-                    "Year="+year+
-                    " AND Month="+month+
-                    " AND Day="+day+
-                    " AND Hour="+hour+
-                    " AND Minute="+minute);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?" +
+                    "useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
 
-            if(rs.next()){
-                return false;
-            }else{
+            String SQL = "{?=CALL addAppointment(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+            CallableStatement cs = connection.prepareCall(SQL);
 
-                PreparedStatement stmt = this.connection.prepareStatement("INSERT INTO Appointment " +
-                        "(idService, Status, IdUser, Year, Month, Day, Hour, Minute) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            cs.registerOutParameter(1, Types.INTEGER);
 
-                stmt.setInt(1, idService);
-                stmt.setInt(2, 0);
-                stmt.setInt(3, idUser);
-                stmt.setInt(4, year);
-                stmt.setInt(5, month);
-                stmt.setInt(6, day);
-                stmt.setInt(7, hour);
-                stmt.setInt(8, minute);
+            cs.setInt(2, 0);
+            cs.setString(3, userName);
+            cs.setString(4, userPhoneNr);
+            cs.setInt(5, year);
+            cs.setInt(6, month);
+            cs.setInt(7, day);
+            cs.setInt(8, hour);
+            cs.setInt(9, minute);
+            cs.setInt(10, idService);
 
-                stmt.executeUpdate();
+            cs.execute();
 
-                return true;
+            return cs.getInt(1);
 
-            }
-
-        } catch (SQLException e) {
-
+        } catch (SQLException ex) {
+            return 0;
         }
-        return false;
+
     }
 
     public void acceptAppointment(int id){
@@ -211,6 +158,7 @@ public class AppointmentDbConnection {
 
     }
 
+
     public void deleteAppointment(int id){
 
         try{
@@ -228,7 +176,5 @@ public class AppointmentDbConnection {
         }
 
     }
-
-     */
 
 }

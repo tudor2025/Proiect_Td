@@ -7,7 +7,8 @@ public class AppointmentAddDTO {
 
     private int idService;
 
-    private int idUser;
+    private String userName;
+    private String userPhoneNr;
 
     private int year;
     private int month;

@@ -57,7 +57,16 @@
 						<label for="phoneNr" id="label"> Phone Nr. :</label>
 					</th>
 					<th>
-						<input type="tel" name="phoneNr" id="textBox_phonrNr" placeholder="06763110200">
+						<input type="text" onkeypress='validate(event)' name="phoneNr" id="textBox_phoneNr" placeholder="0763110200">
+					</th>
+				</tr>
+
+				<tr>
+					<th>
+						<label for="phoneNr" id="label"> Name:</label>
+					</th>
+					<th>
+						<input type="text" name="name" id="textBox_Name" placeholder="Your Name:">
 					</th>
 				</tr>
 
@@ -67,6 +76,7 @@
 					</th>
 					<th>
 						<input type="date" id="dateSelector_Date" name="dateSelector_Date">
+
 					</th>
 				</tr>
 

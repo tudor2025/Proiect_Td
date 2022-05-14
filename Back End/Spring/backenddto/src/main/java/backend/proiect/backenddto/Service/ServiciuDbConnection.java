@@ -36,6 +36,9 @@ public class ServiciuDbConnection {
                 ));
             }
 
+            stmt.close();
+            rs.close();
+
             return listServicies;
 
         } catch (SQLException var7) {

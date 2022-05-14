@@ -1,5 +1,6 @@
 package backend.proiect.backenddto.Appointment;
 
+import backend.proiect.backenddto.Appointment.Models.AppointmentADD;
 import backend.proiect.backenddto.Appointment.Models.AppointmentShow;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,30 +15,25 @@ public interface AppointmentRepository extends JpaRepository<AppointmentShow, Lo
         return appointmentDbConn.getAllAppointments();
     }
 
-    default AppointmentShow getByAppId(Long id){
+    default AppointmentShow getByAppId(int id){
 
-        return appointmentDbConn.getByAppId(id.intValue());
-
-    }
-
-
-    default List<AppointmentShow> getByUserPhoneNr(String userPhoneNr){
-
-        return appointmentDbConn.getByUserPhoneNr(userPhoneNr);
+        return appointmentDbConn.getByAppId(id);
 
     }
 
-    /*
-    default boolean addAppointment(App entity){
+    default int addAppointment(AppointmentADD entity){
 
-        return appointmentDbConn.addAppointment(
+        int ok = appointmentDbConn.addAppointment(
                 entity.getIdService(),
-                entity.getIdUser(),
+                entity.getUserName(),
+                entity.getUserPhoneNr(),
                 entity.getYear(),
                 entity.getMonth(),
                 entity.getDay(),
                 entity.getHour(),
                 entity.getMinute());
+
+        return ok;
 
     }
 
@@ -52,7 +48,5 @@ public interface AppointmentRepository extends JpaRepository<AppointmentShow, Lo
         appointmentDbConn.deleteAppointment(id);
 
     }
-
-     */
 
 }

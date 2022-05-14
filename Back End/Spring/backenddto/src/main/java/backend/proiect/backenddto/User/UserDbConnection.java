@@ -8,22 +8,13 @@ import java.util.List;
 
 public class UserDbConnection {
 
-    private Connection connection;
-
-    public UserDbConnection() {
-
-        try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public List<User> getAllUsers() {
         List<User> listUsers = new ArrayList<User>();
         try {
 
-            Statement stmt = this.connection.createStatement();
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?" +
+                    "useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM User");
 
             while(rs.next()) {
@@ -33,22 +24,35 @@ public class UserDbConnection {
                         rs.getString("PhoneNr")
                 ));
             }
+
+            connection.close();
+            stmt.close();
+            rs.close();
+
         } catch (SQLException var7) {
             System.out.println("Error Db Connection.");
         }
 
+
         return listUsers;
     }
 
-    public User getUserById(int id){
+    public User getUserById(int id) {
 
         try {
 
-            Statement stmt = this.connection.createStatement();
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?" +
+                    "useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
+            Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM User WHERE Id=" + id);
 
-            if(rs.next()){
-                 return new User(
+            if (rs.next()) {
+
+                connection.close();
+                stmt.close();
+                rs.close();
+
+                return new User(
                         rs.getInt("Id"),
                         rs.getString("Name"),
                         rs.getString("PhoneNr")
@@ -62,21 +66,27 @@ public class UserDbConnection {
         return null;
     }
 
-    public void addUser(String name, String phoneNr){
+    public int getIdByPhone(User user){
 
-        try{
+        try {
 
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/sys?" +
+                    "useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "rootpass");
 
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO User (Name, PhoneNr) VALUES (?, ?)");
+            String SQL = "{?=CALL checkIfExistsAndAddIfNot(?, ?)}";
+            CallableStatement cs = connection.prepareCall(SQL);
 
-            stmt.setString(1, name);
-            stmt.setString(2, phoneNr);
+            cs.registerOutParameter(1, Types.INTEGER);
 
-            stmt.executeUpdate();
+            cs.setString(2, user.getName());
+            cs.setString(3, user.getPhoneNr());
 
-        } catch (SQLException e) {
+            cs.execute();
 
+            return cs.getInt(1);
+
+        } catch (SQLException var7) {
+            return -1;
         }
 
     }

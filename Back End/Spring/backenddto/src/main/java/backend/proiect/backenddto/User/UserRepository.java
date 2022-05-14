@@ -18,11 +18,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
         return userDbConnection.getUserById(id.intValue());
     }
 
-    @Override
-    default <S extends User> S save(S user){
+    default int getIdByPhone(User user){
 
-        userDbConnection.addUser(user.getName(), user.getPhoneNr());
+        return userDbConnection.getIdByPhone(user);
 
-        return (S) new User();
     }
+
 }

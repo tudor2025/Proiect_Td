@@ -4,7 +4,7 @@ body{
 
 .card {
     width: 300px;
-    height: 420px;
+    height: 450px;
     background-color: rgba(255, 0, 0, 0.2);
    	justify-content: center;
    	align-items: center;
@@ -45,12 +45,20 @@ body{
 	box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.1);
 }
 
-#textBox_phonrNr{
+#textBox_phoneNr{
 	width: 150px;
 	text-align: center;
 	background-color: rgba(220, 220, 220, 0.8);
 	border-radius: 15px;
 	box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.1);
+}
+
+#textBox_Name{
+  width: 150px;
+  text-align: center;
+  background-color: rgba(220, 220, 220, 0.8);
+  border-radius: 15px;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.1);
 }
 
 #dateSelector_Date{
